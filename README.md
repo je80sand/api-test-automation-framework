@@ -6,41 +6,52 @@
 ![License](https://img.shields.io/badge/license-MIT-lightgrey)
 ![Allure](https://img.shields.io/badge/reporting-allure-purple)
 
-A scalable **API automation testing framework** built with **Python and Pytest**.
+A scalable **API test automation framework** built with **Python + Pytest** designed for CI pipelines and production-level QA environments.
 
-This project demonstrates modern QA automation architecture used by SDET teams including:
+This framework demonstrates **modern test automation architecture used by SDET teams** and emphasizes:
 
-• API client abstraction  
-• Environment switching (dev / stage / prod)  
-• Test suite segmentation (smoke / regression / api)  
-• CI integration with GitHub Actions  
-• Parallel execution  
-• Allure reporting  
-• Makefile automation commands  
+• maintainability  
+• environment portability  
+• modular design  
+• CI/CD integration  
+• scalable test execution  
 
 ---
 
-# Project Architecture
+# Key Features
+
+✔ Modular API client abstraction  
+✔ Environment-based configuration (`dev`, `stage`, `prod`)  
+✔ Test suite segmentation (`smoke`, `regression`, `api`)  
+✔ Parallel test execution with `pytest-xdist`  
+✔ CI integration via GitHub Actions  
+✔ Allure reporting for test analytics  
+✔ Makefile automation commands  
+✔ Structured project architecture  
+
+---
+
+# Framework Architecture
 
 ```
 api-test-automation-framework
 │
 ├── .github/workflows
-│ └── ci.yml
+│ └── ci.yml # CI pipeline
 │
 ├── config
-│ └── settings.py
+│ └── settings.py # environment configuration
 │
 ├── data
-│ └── users_payloads.py
+│ └── users_payloads.py # test data payloads
 │
 ├── schemas
-│ └── login_schema.py
+│ └── login_schema.py # response validation schemas
 │
 ├── src
 │ ├── api
-│ │ ├── api_client.py
-│ │ ├── endpoints.py
+│ │ ├── api_client.py # reusable HTTP client
+│ │ ├── endpoints.py # endpoint definitions
 │ │ └── response_validator.py
 │ │
 │ └── utils
@@ -55,25 +66,65 @@ api-test-automation-framework
 ├── .env.stage
 ├── .env.prod
 │
-├── conftest.py
-├── pytest.ini
-├── Makefile
+├── conftest.py # fixtures + environment loader
+├── pytest.ini # pytest configuration
+├── Makefile # automation shortcuts
 ├── requirements.txt
 └── README.md
 ```
 
 ---
 
+# Design Principles
+
+This framework follows several key automation engineering principles.
+
+### Test Isolation
+Each test is independent and does not rely on execution order.
+
+### API Client Abstraction
+All HTTP interactions are routed through a reusable client to ensure:
+
+• consistent request handling  
+• centralized headers  
+• easier authentication handling  
+• logging and debugging capability
+
+### Environment Configuration
+Environment variables are separated from code using `.env` files.
+
+This allows tests to run against:
+
+```
+dev
+stage
+prod
+```
+
+without code modification.
+
+### Test Suite Segmentation
+
+Tests are categorized for CI pipeline efficiency.
+
+| Marker | Purpose |
+|------|------|
+| smoke | quick validation checks |
+| regression | deeper validation |
+| api | all API tests |
+
+---
+
 # Installation
 
-Clone the repository
+Clone the repository.
 
 ```bash
 git clone https://github.com/je80sand/api-test-automation-framework.git
 cd api-test-automation-framework
 ```
 
-Install dependencies
+Install dependencies.
 
 ```bash
 pip install -r requirements.txt
@@ -83,7 +134,7 @@ pip install -r requirements.txt
 
 # Running Tests
 
-Run all tests
+Run the entire suite.
 
 ```bash
 pytest -v
@@ -91,33 +142,21 @@ pytest -v
 
 ---
 
-# Test Suites
+# Test Suite Execution
 
-This framework supports **test suite levels** used in CI pipelines.
-
-### Smoke Tests
-
-Quick health checks used for fast validation.
+Run smoke tests:
 
 ```bash
 pytest -v -m smoke
 ```
 
----
-
-### Regression Tests
-
-Full validation suite.
+Run regression tests:
 
 ```bash
 pytest -v -m regression
 ```
 
----
-
-### API Tests
-
-Runs all API test cases.
+Run all API tests:
 
 ```bash
 pytest -v -m api
@@ -127,23 +166,15 @@ pytest -v -m api
 
 # Environment Switching
 
-Tests can run against multiple environments.
+Tests can run against different environments.
 
-Available environments
-
-```
-dev
-stage
-prod
-```
-
-Run tests in a specific environment:
+Example:
 
 ```bash
 pytest -v --env=dev
 ```
 
-Example
+Example running smoke tests against staging:
 
 ```bash
 pytest -v -m smoke --env=stage
@@ -161,49 +192,51 @@ Environment variables are loaded from:
 
 # Parallel Execution
 
-Run tests in parallel using **pytest-xdist**.
+Run tests concurrently using `pytest-xdist`.
 
 ```bash
 pytest -n 2
 ```
 
+Parallel execution significantly reduces pipeline execution time in CI environments.
+
 ---
 
 # Makefile Commands
 
-Common commands can be executed using Make.
+The Makefile provides simple command shortcuts.
 
-Run smoke tests
+Run smoke tests:
 
 ```bash
 make smoke
 ```
 
-Run regression tests
+Run regression tests:
 
 ```bash
 make regression
 ```
 
-Run all API tests
+Run full API suite:
 
 ```bash
 make api-suite
 ```
 
-Run tests in parallel
+Run tests in parallel:
 
 ```bash
 make parallel-test
 ```
 
-Generate HTML report
+Generate HTML report:
 
 ```bash
 make report
 ```
 
-Generate Allure report
+Generate Allure report:
 
 ```bash
 make allure
@@ -211,7 +244,7 @@ make allure-report
 make allure-open
 ```
 
-Clean test artifacts
+Clean artifacts:
 
 ```bash
 make clean
@@ -221,19 +254,19 @@ make clean
 
 # Allure Reporting
 
-Generate test results
+Generate Allure results.
 
 ```bash
 pytest --alluredir=allure-results
 ```
 
-Generate report
+Generate report.
 
 ```bash
 allure generate allure-results -o allure-report --clean
 ```
 
-Open report
+Open report.
 
 ```bash
 allure open allure-report
@@ -241,26 +274,24 @@ allure open allure-report
 
 Allure provides:
 
-• test history  
-• step tracing  
-• screenshots  
-• attachments  
+• execution history  
+• step-level reporting  
+• test analytics  
 • failure debugging  
 
 ---
 
 # Continuous Integration
 
-GitHub Actions automatically runs tests on every push.
+GitHub Actions automatically executes tests on every push.
 
-Pipeline steps:
+Pipeline stages:
 
-1. Install dependencies  
-2. Run pytest  
-3. Generate reports  
-4. Validate build status  
+1. Install dependencies
+2. Execute test suite
+3. Validate build status
 
-CI configuration located at:
+CI workflow location:
 
 ```
 .github/workflows/ci.yml
@@ -268,18 +299,7 @@ CI configuration located at:
 
 ---
 
-# Technologies Used
-
-Python  
-Pytest  
-Requests  
-Allure Reporting  
-pytest-xdist  
-GitHub Actions  
-
----
-
-# Example Test Output
+# Example Output
 
 ```
 tests/test_health.py::test_api_health_check PASSED
@@ -294,8 +314,20 @@ tests/test_users.py::test_delete_user PASSED
 
 ---
 
+# Future Enhancements
+
+Potential improvements include:
+
+• API schema validation using Pydantic  
+• request/response logging middleware  
+• flaky test retry handling  
+• coverage reporting  
+• test data factories  
+• Dockerized execution  
+
+---
+
 # Author
 
-Jose Sandoval
-
-Python Developer | Automation Engineer
+Jose Sandoval  
+Automation Engineer | Python Developer
