@@ -2,11 +2,13 @@ import allure
 import pytest
 
 from data.users_payloads import CREATE_USER_PAYLOAD, UPDATE_USER_PAYLOAD
-from src.api.endpoints import USERS, SINGLE_USER
+from src.api.endpoints import SINGLE_USER, USERS
 
 
 @allure.feature("Users")
+@allure.story("Get users list")
 @pytest.mark.api
+@pytest.mark.smoke
 def test_get_users_list(api_client):
     response = api_client.get(USERS)
 
@@ -18,7 +20,9 @@ def test_get_users_list(api_client):
 
 
 @allure.feature("Users")
+@allure.story("Get single user")
 @pytest.mark.api
+@pytest.mark.regression
 def test_get_single_user(api_client):
     response = api_client.get(SINGLE_USER.format(user_id=1))
 
@@ -29,7 +33,9 @@ def test_get_single_user(api_client):
 
 
 @allure.feature("Users")
+@allure.story("Create user")
 @pytest.mark.api
+@pytest.mark.regression
 def test_create_user(api_client):
     response = api_client.post(USERS, CREATE_USER_PAYLOAD)
 
@@ -41,7 +47,9 @@ def test_create_user(api_client):
 
 
 @allure.feature("Users")
+@allure.story("Update user")
 @pytest.mark.api
+@pytest.mark.regression
 def test_update_user(api_client):
     response = api_client.put(
         SINGLE_USER.format(user_id=1),
@@ -55,7 +63,9 @@ def test_update_user(api_client):
 
 
 @allure.feature("Users")
+@allure.story("Delete user")
 @pytest.mark.api
+@pytest.mark.regression
 def test_delete_user(api_client):
     response = api_client.delete(SINGLE_USER.format(user_id=1))
 
