@@ -1,0 +1,25 @@
+# Python cache
+__pycache__/
+*.py[cod]
+*$py.class
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+
+# Virtual environment
+venv/
+.venv/
+
+# Coverage / reports
+htmlcov/
+.coverage
+.coverage.*
+coverage.xml
+reports/
+report.html
+allure-results/
+allure-report/
+
+# OS / editor
+.DS_Store
+.vscode/settings.json
