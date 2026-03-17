@@ -1,6 +1,10 @@
 # API Test Automation Framework
 
+![Python](https://img.shields.io/badge/python-3.11-blue)
+![Pytest](https://img.shields.io/badge/pytest-framework-green)
+![API Testing](https://img.shields.io/badge/testing-API-orange)
 [![CI](https://github.com/je80sand/api-test-automation-framework/actions/workflows/ci.yml/badge.svg)](https://github.com/je80sand/api-test-automation-framework/actions)
+![Coverage](https://img.shields.io/badge/coverage-75%25-yellowgreen)
 
 A scalable, production-style API test automation framework built with **Python, Pytest, and Requests**, designed with **senior-level QA engineering practices**.
 
