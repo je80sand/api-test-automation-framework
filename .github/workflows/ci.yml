@@ -2,15 +2,12 @@ name: API Automation CI
 
 on:
   push:
-    branches:
-      - main
+    branches: [main]
   pull_request:
-    branches:
-      - main
+    branches: [main]
 
 jobs:
   smoke-tests:
-    name: Smoke Tests + Coverage
     runs-on: ubuntu-latest
 
     steps:
@@ -27,14 +24,18 @@ jobs:
           python -m pip install --upgrade pip
           pip install -r requirements.txt
 
-      - name: Run smoke suite with coverage
+      - name: Run smoke tests with coverage
         run: |
-          pytest -v -m smoke --env=dev --cov=src --cov-report=term-missing --cov-report=xml --alluredir=allure-results
+          pytest -v -m smoke --env=dev --cov=src --cov-report=xml --alluredir=allure-results
 
-      - name: Upload coverage XML
+      - name: Upload coverage report
         uses: actions/upload-artifact@v4
         with:
           name: coverage-xml
           path: coverage.xml
 
-      - name: Upload
+      - name: Upload Allure results
+        uses: actions/upload-artifact@v4
+        with:
+          name: allure-results
+          path: allure-results
