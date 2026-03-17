@@ -38,3 +38,9 @@ clean:
 	rm -rf htmlcov
 	rm -rf .coverage
 	rm -rf coverage.xml
+
+coverage:
+	pytest -v --cov=src --cov-report=term-missing --cov-report=xml --env=dev
+
+coverage-html:
+	pytest -v --cov=src --cov-report=html --cov-report=term-missing --env=dev
