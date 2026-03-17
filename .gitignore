@@ -23,3 +23,10 @@ allure-report/
 # OS / editor
 .DS_Store
 .vscode/settings.json
+
+logs/
+allure-results/
+allure-report/
+htmlcov/
+.coverage
+coverage.xml

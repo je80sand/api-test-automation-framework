@@ -1,10 +1,7 @@
 import requests
 
 from config import settings
-from src.utils.logger import get_logger
-
-
-logger = get_logger(__name__)
+from src.utils.logger import log_request, log_response
 
 
 class APIClient:
@@ -15,47 +12,55 @@ class APIClient:
 
     def get(self, endpoint, params=None):
         url = f"{self.base_url}{endpoint}"
-        logger.info(f"GET {url}")
+        log_request("GET", url, headers=self.headers, body=params)
+
         response = requests.get(
             url,
             params=params,
             headers=self.headers,
             timeout=self.timeout,
         )
-        logger.info(f"Status Code: {response.status_code}")
+
+        log_response(response)
         return response
 
     def post(self, endpoint, data=None):
         url = f"{self.base_url}{endpoint}"
-        logger.info(f"POST {url}")
+        log_request("POST", url, headers=self.headers, body=data)
+
         response = requests.post(
             url,
             json=data,
             headers=self.headers,
             timeout=self.timeout,
         )
-        logger.info(f"Status Code: {response.status_code}")
+
+        log_response(response)
         return response
 
     def put(self, endpoint, data=None):
         url = f"{self.base_url}{endpoint}"
-        logger.info(f"PUT {url}")
+        log_request("PUT", url, headers=self.headers, body=data)
+
         response = requests.put(
             url,
             json=data,
             headers=self.headers,
             timeout=self.timeout,
         )
-        logger.info(f"Status Code: {response.status_code}")
+
+        log_response(response)
         return response
 
     def delete(self, endpoint):
         url = f"{self.base_url}{endpoint}"
-        logger.info(f"DELETE {url}")
+        log_request("DELETE", url, headers=self.headers)
+
         response = requests.delete(
             url,
             headers=self.headers,
             timeout=self.timeout,
         )
-        logger.info(f"Status Code: {response.status_code}")
+
+        log_response(response)
         return response

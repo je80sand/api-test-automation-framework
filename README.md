@@ -327,6 +327,22 @@ Potential improvements include:
 
 ---
 
+## 📊 Logging
+
+All API requests and responses are logged to:
+
+logs/test_run.log
+
+Includes:
+- HTTP method and endpoint
+- Request headers and payload
+- Response status codes
+- Response body
+
+This enables debugging and traceability similar to real-world QA environments.
+
+---
+
 # Author
 
 Jose Sandoval  
